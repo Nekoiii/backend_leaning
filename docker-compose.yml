@@ -1,4 +1,5 @@
 # tutorial: https://qiita.com/Yusuke_Hoirta/items/3a50d066af3bafbb8641
+# Youtube: https://www.youtube.com/watch?v=pTFZFxd4hOI
 
 version: '3.8'
 
@@ -17,14 +18,14 @@ services:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/myapp
+      - .:/app
     ports:
       - "3000:3000"
     depends_on:
       - db
 
 volumes:
-  db-data:
+  mysql_data:
 
 
 
