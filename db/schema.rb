@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_05_054637) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_05_121135) do
   create_table "machines", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "record_ids"
   end
 
   create_table "records", charset: "utf8mb4", force: :cascade do |t|
@@ -21,6 +22,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_054637) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "machine_id", null: false
+    t.string "title"
+    t.text "content"
     t.index ["machine_id"], name: "index_records_on_machine_id"
   end
 

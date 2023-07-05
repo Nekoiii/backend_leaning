@@ -22,7 +22,7 @@ module Types
 
     field :machine, [MachineType], null: false,
       description: "Get machine"
-    def record
+    def machine
       Machine.all
     end
 
