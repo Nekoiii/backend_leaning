@@ -70,3 +70,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem 'graphql'
+gem 'graphql-batch'
+group :development do
+  gem 'graphiql-rails'
+end
