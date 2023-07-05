@@ -1,5 +1,5 @@
 class Machine < ApplicationRecord
   has_many :record
 
-  validates :record_ids 
+  validate :record_ids 
 end

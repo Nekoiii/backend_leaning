@@ -7,11 +7,7 @@ module Types
       "Hello World"
     end
 
-    field :record, RecordType, null: false,
-      description: "Get record"
-    def record
-      "Get record"
-    end
+
 
 
 

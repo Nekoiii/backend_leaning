@@ -17,7 +17,16 @@ module Types
     field :record, [RecordType], null: false,
       description: "Get record"
     def record
-      "Get record"
+      Record.all
     end
+
+    field :machine, [MachineType], null: false,
+      description: "Get machine"
+    def record
+      Machine.all
+    end
+
+
+
   end
 end

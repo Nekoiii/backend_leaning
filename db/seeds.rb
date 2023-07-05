@@ -7,7 +7,8 @@
 #   Character.create(name: "Luke", movie: movies.first)
 record = Record.create!([
   {
-    title:'aaa'
+    title:'aaa',
+    content:'aaaaaaaaaaa'
   }
 ])
 

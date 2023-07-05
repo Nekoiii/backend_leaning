@@ -1,9 +1,9 @@
 class Record < ApplicationRecord
   belongs_to :machine
 
-  validates :title, presence: true
-  validates :content 
-  validates :type 
-  validates :machine 
+  validate :title, presence: true
+  validate :content 
+  validate :type 
+  validate :machine 
 
 end
