@@ -5,13 +5,13 @@ module Types
     field :id , ID, null: false
     field :title , String, null: false
     field :content , String
-    field :type , RecordEnumType
+    field :type , Types::RecordEnumType
 
     field :image_url , String
 
 
-    field :machine, MachineType, null: false
-    field :user, UserType, null: false
+    field :machine, Types::MachineType, null: false
+    field :user, Types::UserType, null: false
     
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false

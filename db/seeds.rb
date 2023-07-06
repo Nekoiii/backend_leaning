@@ -4,12 +4,14 @@ record = Record.create!([
   {
     title:'aaa',
     content:'aaaaaaaaaaa',
+    type:'"HYGIENE"',
     user: user1,
     machine: machine1
   },
   {
     title:'bbb',
     content:'bbbbbbbb',
+    type:'TEMPERATURE',
     user: user1,
     machine: machine1
   }

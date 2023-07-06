@@ -22,13 +22,20 @@ module Types
       Machine.all
     end
 
-
-    field :user, [UserType], null: false,
-      description: "Get user"
-    def user
+    field :users, [UserType], null: false,
+      description: "Get all users"
+    def users
       User.all
     end
-    
+
+    field :user, UserType, null: false ,
+      description: "Get user with id" do
+      argument :id, ID, required: true
+    end
+    def user(id:)
+      User.find(id)
+    end   
+
     '''field :user do
       type UserType
       argument :id, !types.ID
