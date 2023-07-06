@@ -6,11 +6,27 @@ module Types
     field :title , String, null: false
     field :content , String
     field :type , RecordEnumType
-    field :machine , String
 
     field :image_url , String
+
+
+    field :machine, MachineType, null: false
+    field :user, UserType, null: false
     
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+
+
+
+    def machine
+      Machine.find(object.machine_id)
+    end
+
+    def user
+      User.find(object.user_id)
+    end
+
+
+
   end
 end

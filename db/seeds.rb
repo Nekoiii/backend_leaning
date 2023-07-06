@@ -1,27 +1,33 @@
-"""record = Record.create!([
+machine1 = Machine.create!
+user1 = User.create(name:'user1')
+record = Record.create!([
   {
     title:'aaa',
-    content:'aaaaaaaaaaa'
+    content:'aaaaaaaaaaa',
+    user: user1,
+    machine: machine1
   },
   {
     title:'bbb',
-    content:'bbbbbbbb'
+    content:'bbbbbbbb',
+    user: user1,
+    machine: machine1
   }
 ])
-machine = Machine.create!([
-  {
-    record_ids:[]
-  }
-])"""
 
 
+
+"""
 record1 = Record.create(title: 'aaa', content: 'aaaaaaaaaaa')
 record2 = Record.create(title: 'bbb', content: 'bbbbbbbb')
+
+user1 = User.create(name:'user1')
+
 
 machine = Machine.create!
 machine.records << record1
 machine.records << record2
-
+"""
 
 
 
