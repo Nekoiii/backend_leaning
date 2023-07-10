@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  get 'records', to: 'pages#records'
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
@@ -8,5 +10,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root 'application#hello'
+  root 'pages#home'
 end
