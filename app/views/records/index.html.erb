@@ -1,10 +1,20 @@
+<%= stylesheet_link_tag 'records' %>
+
+
 <div class='container'>
 <h1>Record Page</h1>
+ 
 
-
-<ul>
+<ul class='records_list'>
   <% @records.each do |record| %>
-    <li><%= record.id %></li>
+    <li>
+      <% if record.title.present? %>
+        <%=link_to record.title ,record%>
+      <% else %>
+        'no title'
+      <% end %>
+    <%= render record %>
+    </li>
   <% end %>
 </ul>
 

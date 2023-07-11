@@ -76,3 +76,6 @@ gem 'graphql-batch'
 group :development do
   gem 'graphiql-rails'
 end
+
+
+gem 'htmlbeautifier'
