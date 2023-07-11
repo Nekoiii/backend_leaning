@@ -1,11 +1,13 @@
 
 
 .records_list .record_card{
-  border: 4px solid #556677;
+  border: 4px solid var(--gray-2);
   border-radius: 5px;
   padding: 5px 10px;
 
 }
+
+
 
 
 

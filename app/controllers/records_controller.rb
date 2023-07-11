@@ -9,11 +9,18 @@ class RecordsController < ApplicationController
     @record=Record.new
   end
 
-  def show;end
 
   def set_record
     @record=Record.find(params[:id])
   end
+
+  def destroy
+    @record = Record.find(params[:id])
+    @record.destroy
+    redirect_to records_path, notice: "Record  with ID #{params[:id]} was successfully deleted."
+  end
+
+
 
   
   end  

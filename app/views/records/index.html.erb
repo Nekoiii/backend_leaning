@@ -1,10 +1,12 @@
 <%= stylesheet_link_tag 'records' %>
 
 
-<div class='container'>
-<h1>Record Page</h1>
+<div class='records_index_page'>
+<h1>Records Page</h1>
  
+<button>Add New Record</button>
 
+<p><%= pluralize(Record.count, 'record')  %></p>
 <ul class='records_list'>
   <% @records.each do |record| %>
     <li>
@@ -17,6 +19,8 @@
     </li>
   <% end %>
 </ul>
+
+
 
   
 </div>

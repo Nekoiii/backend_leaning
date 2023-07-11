@@ -1,7 +1,39 @@
-<div>
-  <%= @record.id %>
-</div>
+<div records_show_page>
 
-<div>
+  <h1><%= @record.title %></h1>
+  
   <%= render partial: 'record', locals: { record: @record } %>
+
+
+
+  <% if @record.type?  %>
+    <div>Record type:<%= @record.type %></div>
+  <% end %>
+
+  <% if @record.machine.present?  %>
+    <div>Machine id:<%= @record.machine.id %></div>
+  <% end %>
+
+
+  <% if @record.user.present?  %>
+    User name:
+    <%= @record.user.name %>
+  <% else %>
+    <p>No recorder's name</p>
+  <% end %>
+  
+  <!--
+  <%= @record.user.present? ? 
+    "User name: #{record.user.name}" :
+    "<p>No recorder's name</p>".html_safe %>
+  -->
+
+
+  <div>
+    <%= button_to 'Edit' %>
+    <%= button_to "Delete", record_path(@record), method: :delete %>
+  </div>
+
+  <%= link_to 'Back to records page', records_path%>
+
 </div>
