@@ -4,6 +4,8 @@ class Record < ApplicationRecord
 
   validates :title, presence: true
 
-  enum record_type: { hygiene: 0, temperature: 1 ,humidity:3}
+  RECORD_TYPES = { hygiene: 0, temperature: 1, humidity: 2 }
+  enum record_type: RECORD_TYPES
+
 
 end

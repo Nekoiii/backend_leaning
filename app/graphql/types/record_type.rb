@@ -9,13 +9,20 @@ module Types
 
     field :image_url , String
 
-
-    #field :machine, Types::MachineType, null: false
-    #field :user, Types::UserType, null: false
-    
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
+
+    '''
+    The methods defined here can only be called in graphql, 
+    and cannot be directly used in the ActiveRecord model !!!!
+    So if use <%=record.full_title%> in index.html.erb, 
+    it will report an error !!!!
+    '''
+    field :full_title, String
+    def full_title
+     "#{object.title} - #{object.machine.name}"
+    end
 
 
     def machine
