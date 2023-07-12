@@ -20,6 +20,11 @@ class RecordsController < ApplicationController
     redirect_to records_path, notice: "Record  with ID #{params[:id]} was successfully deleted."
   end
 
+  def edit
+    @record=Record.find(params[:id])
+
+  end
+
 
 
   

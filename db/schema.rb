@@ -10,29 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_06_023804) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_020935) do
   create_table "machines", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "record_ids"
   end
 
   create_table "records", charset: "utf8mb4", force: :cascade do |t|
-    t.string "type"
+    t.string "title"
+    t.string "content"
+    t.string "image_url"
+    t.bigint "user_id"
+    t.bigint "machine_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "machine_id", null: false
-    t.string "title"
-    t.text "content"
-    t.bigint "user_id"
+    t.integer "record_type"
     t.index ["machine_id"], name: "index_records_on_machine_id"
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
   end
 
   add_foreign_key "records", "machines"

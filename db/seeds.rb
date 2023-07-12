@@ -1,22 +1,24 @@
-machine1 = Machine.create!
+machine1 = Machine.create(name:'machine1')
 user1 = User.create(name:'user1')
-record = Record.create!([
-  {
-    title:'aaa',
-    content:'aaaaaaaaaaa',
-    type:'"HYGIENE"',
-    user: user1,
-    machine: machine1
-  },
-  {
-    title:'bbb',
-    content:'bbbbbbbb',
-    type:'TEMPERATURE',
-    user: user1,
-    machine: machine1
-  }
-])
 
+2.times do 
+  Record.create!([
+    {
+      title:'aaa',
+      content:'aaaaaaaaaaa',
+      record_type: :hygiene,
+      user: user1,
+      machine: machine1
+    },
+    {
+      title:'bbb',
+      content:'bbbbbbbb',
+      record_type: :temperature,
+      user: user1,
+      machine: machine1
+    }
+  ])
+end
 
 
 """
