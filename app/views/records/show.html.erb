@@ -21,6 +21,11 @@
   <% else %>
     <p>No recorder's name</p>
   <% end %>
+
+  <% if @record.content.present?  %>
+    <div><%= @record.content %></div>
+  <% end %>
+
   
   <%#= @record.user.present? ? 
     "User name: #{record.user.name}" :

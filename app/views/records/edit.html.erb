@@ -6,9 +6,9 @@ Editing---
 <div>
   <%= form_for @record do |f| %>
 
-      <div class="field">
-      <%= f.label :type %>
-      <%= f.text_area :type %>
+    <div class="field">
+      <%= f.label :record_type %>
+      <%= f.select :record_type, Record.record_types.keys.map { |w| [w.humanize, w] } %>
     </div>
 
     <div class="field">
@@ -21,14 +21,15 @@ Editing---
       <%= f.text_area :content %>
     </div>
 
+
     <div class="field">
       <%= f.label :machine %>
-      <%= f.text_area :machine %>
+      <%= f.collection_select :machine_id, Machine.all, :id, :name %>
     </div>
 
     <div class="field">
       <%= f.label :user %>
-      <%= f.text_area :user %>
+      <%= f.collection_select :user_id, User.all, :id, :name %>
     </div>
 
     <%= f.submit 'Save' %>
