@@ -4,7 +4,8 @@ Editing---
 <%= @record.id %>
 
 <div>
-  <%= form_for @record do |f| %>
+  <%# form_for : https://qiita.com/manbolila/items/b8336ab115f3aebacbb9 %>
+  <%= form_with model: @record do |f| %>
 
     <div class="field">
       <%= f.label :record_type %>
