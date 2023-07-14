@@ -78,3 +78,5 @@ group :development do
 end
 
 gem 'htmlbeautifier'
+
+gem 'sassc'

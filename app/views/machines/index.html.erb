@@ -1,0 +1,22 @@
+<div>
+
+<h2>Machines Page</h2>
+
+
+<ul class='machines_list'>
+  <% @machines.each do |machine| %>
+    <li>
+      <% if machine.name.present? %>
+        <%=link_to machine.name, machine%>
+      <% else %>
+        'no machine name'
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+
+
+
+
+</div>

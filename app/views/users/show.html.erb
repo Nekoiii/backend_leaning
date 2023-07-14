@@ -1,0 +1,18 @@
+<div class='users_show_page'>
+
+<h3><%= @user.name %></h3>
+
+
+<h6>Records :</h6>
+
+<ul>
+  <% @user.records.each do |record| %>
+  <li>
+    <%= render partial: 'records/record', locals: { record: record } %>
+  <% end %>
+  </li>
+</ul>
+
+
+
+</div>

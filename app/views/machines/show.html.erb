@@ -1,0 +1,15 @@
+<div class='machines_show_page'>
+
+<h3><%= @machine.name %></h3>
+
+
+<h6>Records :</h6>
+<ul>
+  <% @machine.records.each do |record| %>
+    <li><%= record.title %></li>
+  <% end %>
+</ul>
+
+
+
+</div>
