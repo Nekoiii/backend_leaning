@@ -80,3 +80,5 @@ end
 gem 'htmlbeautifier'
 
 gem 'sassc'
+
+gem 'aws-sdk-s3'
