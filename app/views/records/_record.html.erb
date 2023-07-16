@@ -1,17 +1,9 @@
 <div class='record_card'>
 
 
-<% if record.title.present? %>
-  <%=link_to record.title, record%>
-<% else %>
-  'no title'
-<% end %>
 
-
-<div class='card_body'>
   <div>id:<%= record.id %></div>
   <div>Create at:<%= record.created_at %></div>
   <div>Update at:<%= record.updated_at %></div>
-</div>
 
 </div>

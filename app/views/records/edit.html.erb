@@ -5,7 +5,7 @@ Editing---
 
 <div>
   <%# form_with : https://qiita.com/manbolila/items/b8336ab115f3aebacbb9 %>
-  <%= form_with model: @record do |f| %>
+  <%= form_with model: @record, local: true, multipart: true  do |f| %>
 
     <div class="field">
       <%= f.label :record_type %>
@@ -33,10 +33,53 @@ Editing---
       <%= f.collection_select :user_id, User.all, :id, :name %>
     </div>
 
+    <div class="field">
+      <%= f.label :images %><br>
+      <%# direct_upload: https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads
+      https://techracho.bpsinc.jp/hachi8833/2018_02_06/52179 %>
+      <%= f.file_field :images, 
+          multiple: true , direct_upload: true,
+          onchange: "previewImages(event)"
+      %>
+
+      <%# file_field_tag "images[]", type: :file, 
+        multiple: true , direct_upload: true,
+        onchange: "previewImages(event)"%>
+      <div id="image-preview"></div>
+    </div>
+
+    
     <%= f.submit 'Save' %>
     
   <% end %>
 </div>
+
+<script>
+  function previewImages(event) {
+    var files = event.target.files;
+    var imagePreview = document.getElementById('image-preview');
+    imagePreview.innerHTML = '';  // Clear up 
+
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.width = '200px';
+        imagePreview.appendChild(img);
+      }
+
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
+
+<% @record.images.each do |image| %>
+  <div><%= image_tag image %></div>
+<% end %>
+
 
 
 </div>

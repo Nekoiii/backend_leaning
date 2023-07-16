@@ -10,6 +10,11 @@
 <ul class='records_list'>
   <% @records.each do |record| %>
     <li>
+    <% if record.title.present? %>
+    <%=link_to record.title, record%>
+    <% else %>
+      'no title'
+    <% end %>
     <%= render record %>
     </li>
   <% end %>

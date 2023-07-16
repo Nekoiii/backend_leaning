@@ -7,8 +7,6 @@ module Types
     field :content , String
     field :record_type , Types::RecordEnumType
 
-    field :imgs, [Types::ImageType]
-
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false

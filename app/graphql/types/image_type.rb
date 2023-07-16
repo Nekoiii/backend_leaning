@@ -1,5 +1,5 @@
 module Types
-  class ImgType < Types::BaseObject
+  class ImageType < Types::BaseObject
     field :url, String, null: false
 
     def url

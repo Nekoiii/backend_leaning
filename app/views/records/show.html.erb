@@ -22,6 +22,11 @@
     <p>No recorder's name</p>
   <% end %>
 
+  <% @record.images.each do |image| %>
+    <div><%= image_tag image %></div>
+  <% end %>
+
+
   <% if @record.content.present?  %>
     <div><%= @record.content %></div>
   <% end %>
