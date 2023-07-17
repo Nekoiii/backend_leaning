@@ -13,6 +13,12 @@ Editing---
     </div>
 
     <div class="field">
+      <%= f.label :record_status %>
+      <%# * It's 'record_statuses', not 'record_status' here !!!! %>
+      <%= f.select :record_status, Record.record_statuses.keys.map { |w| [w.humanize, w] } %>
+    </div>
+
+    <div class="field">
       <%= f.label :title %>
       <%= f.text_field :title %>
     </div>

@@ -3,6 +3,8 @@ class RecordsController < ApplicationController
 
   def index
     @records=Record.all
+    @totle_records_count=Record.count
+    @overflow_records_count = Record.where(record_status: 'overflow').count
   end
   
   def new
@@ -38,8 +40,9 @@ class RecordsController < ApplicationController
   private
 
   def record_params
-    params.require(:record).permit(:record_type, :title, 
-      :content, :machine_id, :user_id, :images => [])
+    params.require(:record).permit( :title, :content, 
+      :machine_id, :user_id, :record_type,:record_status,
+      :images => [])
   end
 
 

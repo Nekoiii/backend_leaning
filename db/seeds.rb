@@ -7,13 +7,15 @@ user1 = User.create(name:'user1')
       title:'aaa',
       content:'aaaaaaaaaaa',
       record_type: :hygiene,
+      record_status: 'overflow',
       user: user1,
-      machine: machine1
+      machine: machine1,
     },
     {
       title:'bbb',
       content:'bbbbbbbb',
       record_type: :temperature,
+      record_status: 'resolved',
       user: user1,
       machine: machine1
     }

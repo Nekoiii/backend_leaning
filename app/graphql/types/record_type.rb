@@ -6,6 +6,7 @@ module Types
     field :title , String, null: false
     field :content , String
     field :record_type , Types::RecordEnumType
+    field :record_status , Types::RecordStatusEnumType
 
 
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false

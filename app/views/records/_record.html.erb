@@ -1,6 +1,11 @@
 <div class='record_card'>
 
 
+  <% if record.record_status == 'overflow' %>
+    <div class="icon-overflow">!</div>
+  <% elsif record.record_status == 'resolved' %>
+    <div class="icon-resolved">√</div>
+  <% end %>
 
   <div>id:<%= record.id %></div>
   <div>Create at:<%= record.created_at %></div>
