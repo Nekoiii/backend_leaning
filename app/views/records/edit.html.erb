@@ -1,4 +1,4 @@
-<div>
+<div class='record_edit_page'>
 
 Editing---
 <%= @record.id %>
@@ -54,7 +54,16 @@ Editing---
       <div id="image-preview"></div>
     </div>
 
-    
+      <div class='flex-box'>
+        <% @record.images.each do |image| %>
+          <div class=''>
+            <%= image_tag image , :class => "record_img_thumbnail"%>
+            <%= check_box_tag 'images_to_delete[]', image.id %>
+            <%= label_tag "delete_image_#{image.id}", 'Delete' %>
+          </div>
+        <% end %>
+      </div>
+
     <%= f.submit 'Save' %>
     
   <% end %>
@@ -82,9 +91,7 @@ Editing---
   }
 </script>
 
-<% @record.images.each do |image| %>
-  <div><%= image_tag image %></div>
-<% end %>
+
 
 
 

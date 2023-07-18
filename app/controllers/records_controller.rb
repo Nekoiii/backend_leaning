@@ -2,6 +2,8 @@ class RecordsController < ApplicationController
   before_action :set_record, only: [:show]
 
   def index
+    # Debug : https://codeclub965.com/?p=1520
+    #Rails.logger.debug "aaaaaaa"
     @records=Record.all
     @totle_records_count=Record.count
     @overflow_records_count = Record.where(record_status: 'overflow').count
@@ -28,21 +30,29 @@ class RecordsController < ApplicationController
 
   def update
     @record = Record.find(params[:id])
-  
+
+    # Update images with .attach() instead of replacing old ones
+    # params methos: https://ichigick.com/rails-params/
+    if params[:record][:images]
+      params[:record][:images] = @record.images.attach(params[:record][:images])
+    end
+
+    Rails.logger.debug "Images to delete: #{params[:images_to_delete]}-----"
+    if params[:images_to_delete]
+      images_to_delete = params[:images_to_delete]
+      images_to_delete.each do |image_id|
+        image = @record.images.find(image_id)
+        image.purge
+      end
+    end
+
+    Rails.logger.debug "record params--: #{params}--"
+    Rails.logger.debug "record params: #{record_params}--"
     if @record.update(record_params)
       redirect_to @record, notice: "Record with ID #{params[:id]} was successfully updated."
     else
       render :edit
     end
-  end
-  
-
-  private
-
-  def record_params
-    params.require(:record).permit( :title, :content, 
-      :machine_id, :user_id, :record_type,:record_status,
-      :images => [])
   end
 
 
@@ -79,5 +89,14 @@ class RecordsController < ApplicationController
   end
   
 
-  
+  private
+
+  # strong parameters: https://ichigick.com/rails-strong-parameter/
+  def record_params
+    params.require(:record).permit( :title, :content, 
+      :machine_id, :user_id, :record_type, :record_status,
+      :images => [], :images_to_delete => [])
+  end
+
+
   end  
