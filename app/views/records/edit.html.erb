@@ -56,33 +56,68 @@ Editing---
 
       <div class='flex-box'>
         <% @record.images.each do |image| %>
-          <div class=''>
-            <%= image_tag image , :class => "record_img_thumbnail"%>
-            <%= check_box_tag 'images_to_delete[]', image.id %>
-            <%= label_tag "delete_image_#{image.id}", 'Delete' %>
+          <div class='img_container'>
+            <%= image_tag image , :class => 'record_img_thumbnail'%>
+            <%# rails check box:  https://www.sejuku.net/blog/27132 %>
+            <%= check_box_tag 'images_to_delete[]', image.id ,false, :style => 'display:none;'%>
+            <span class="button-delete" data-image-id="<%= image.id %>">x</span>
           </div>
         <% end %>
       </div>
-
     <%= f.submit 'Save' %>
     
   <% end %>
 </div>
 
 <script>
+
+  document.querySelectorAll('.button-delete').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+      let container = button.parentNode;
+      let imageId = button.dataset.imageId;
+      let checkbox = document.querySelector('input[name="images_to_delete[]"][value="' + imageId + '"]');
+      let imgElement = container.querySelector('.record_img_thumbnail');
+      console.log('container--',container)
+
+      checkbox.checked = !checkbox.checked;
+
+      if (checkbox.checked) {
+        imgElement.classList.add('img-deleted');
+
+        let labelDeleted = document.createElement('span');
+        labelDeleted.textContent = 'Deleted';
+        labelDeleted.classList.add('label-deleted');
+        container.appendChild(labelDeleted);
+      } else {
+        imgElement.classList.remove('img-deleted');
+
+        let labelDeleted = container.querySelector('.label-deleted');
+        if (labelDeleted) {
+          container.removeChild(labelDeleted);
+        }
+      }
+
+      let imagesToDelete = document.getElementsByName('images_to_delete[]');
+      let selectedImages = Array.from(imagesToDelete).filter(checkbox => checkbox.checked);
+      console.log('Images to delete:', selectedImages.map(checkbox => checkbox.value));
+      //console.log('Ixxx:', document.getElementsByName('images_to_delete[]'));
+    });
+  });  
+
+  
   function previewImages(event) {
-    var files = event.target.files;
-    var imagePreview = document.getElementById('image-preview');
+    let files = event.target.files;
+    let imagePreview = document.getElementById('image-preview');
     imagePreview.innerHTML = '';  // Clear up 
 
-    for (var i = 0; i < files.length; i++) {
-      var file = files[i];
-      var reader = new FileReader();
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      let reader = new FileReader();
 
       reader.onload = function(e) {
-        var img = document.createElement('img');
+        let img = document.createElement('img');
         img.src = e.target.result;
-        img.style.width = '200px';
+        img.classList.add('record_img_thumbnail');
         imagePreview.appendChild(img);
       }
 
@@ -90,9 +125,6 @@ Editing---
     }
   }
 </script>
-
-
-
 
 
 </div>
