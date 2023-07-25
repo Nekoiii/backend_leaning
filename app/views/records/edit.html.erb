@@ -39,31 +39,34 @@ Editing---
       <%= f.collection_select :user_id, User.all, :id, :name %>
     </div>
 
+    <%#  Add new imgs %>
     <div class="field">
       <%= f.label :images %><br>
-      <%# direct_upload: https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads
+      <%# direct_upload: 
+      https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads
       https://techracho.bpsinc.jp/hachi8833/2018_02_06/52179 %>
       <%= f.file_field :images, 
+          id: "img_upload_field",
           multiple: true , direct_upload: true,
-          onchange: "previewImages(event)"
+          onchange: "show_new_imgs(event)",
+          class:'hidden'
       %>
-
-      <%# file_field_tag "images[]", type: :file, 
-        multiple: true , direct_upload: true,
-        onchange: "previewImages(event)"%>
+      <button id='img_upload_button' class='button-blue'>Add New Images</button>
       <div id="image-preview"></div>
     </div>
 
-      <div class='flex-box'>
-        <% @record.images.each do |image| %>
-          <div class='img_container'>
-            <%= image_tag image , :class => 'record_img_thumbnail'%>
-            <%# rails check box:  https://www.sejuku.net/blog/27132 %>
-            <%= check_box_tag 'images_to_delete[]', image.id ,false, :style => 'display:none;'%>
-            <span class="button-delete" data-image-id="<%= image.id %>">x</span>
-          </div>
-        <% end %>
-      </div>
+    <%# Show imgs %>
+    <div class='flex-box'>
+      <% @record.images.each do |image| %>
+        <div class='img_container'>
+          <%= image_tag image , :class => 'record_img_thumbnail'%>
+          <%# rails check box:  https://www.sejuku.net/blog/27132 %>
+          <%= check_box_tag 'images_to_delete[]', image.id ,false, :style => 'display:none;'%>
+          <span class="button-delete" data-image-id="<%= image.id %>">x</span>
+        </div>
+      <% end %>
+    </div>
+
     <%= f.submit 'Save' %>
     
   <% end %>
@@ -71,13 +74,42 @@ Editing---
 
 <script>
 
+  let all_new_imgs=[]
+  
+  // Use my button to call the imgs upload field
+  document.getElementById('img_upload_button').addEventListener('click', event=> {
+    event.preventDefault();
+    document.getElementById('img_upload_field').click();
+  });
+  // Add new img to all new imgs list
+  function show_new_imgs(event) {
+    new_imgs=Array.from(event.target.files);
+    all_new_imgs.unshift(...new_imgs)
+    console.log('all_new_imgs',all_new_imgs)
+
+    // Preview after adding new imgs
+    let imagePreview = document.getElementById('image-preview');
+    imagePreview.innerHTML = '';  // clear up existing previews
+    all_new_imgs.forEach(function(file) {
+      let reader = new FileReader();
+      reader.onload = function(e) {
+        let img = document.createElement('img');
+        img.src = e.target.result;
+        img.classList.add('record_img_thumbnail');
+        imagePreview.appendChild(img);
+      }
+      reader.readAsDataURL(file);
+    });
+  }
+  
+  
+  // Delete img
   document.querySelectorAll('.button-delete').forEach(function(button) {
     button.addEventListener('click', function(event) {
       let container = button.parentNode;
       let imageId = button.dataset.imageId;
       let checkbox = document.querySelector('input[name="images_to_delete[]"][value="' + imageId + '"]');
       let imgElement = container.querySelector('.record_img_thumbnail');
-      console.log('container--',container)
 
       checkbox.checked = !checkbox.checked;
 
@@ -104,26 +136,7 @@ Editing---
     });
   });  
 
-  
-  function previewImages(event) {
-    let files = event.target.files;
-    let imagePreview = document.getElementById('image-preview');
-    imagePreview.innerHTML = '';  // Clear up 
 
-    for (let i = 0; i < files.length; i++) {
-      let file = files[i];
-      let reader = new FileReader();
-
-      reader.onload = function(e) {
-        let img = document.createElement('img');
-        img.src = e.target.result;
-        img.classList.add('record_img_thumbnail');
-        imagePreview.appendChild(img);
-      }
-
-      reader.readAsDataURL(file);
-    }
-  }
 </script>
 
 
