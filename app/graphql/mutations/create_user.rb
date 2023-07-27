@@ -1,3 +1,4 @@
+# https://qiita.com/k-penguin-sato/items/07fef2f26fd6339e0e69
 class Mutations::CreateUser < Mutations::BaseMutation
   argument :name, String
 
