@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title><%= [@title, APP_NAME].compact.join(' | ') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <%= csrf_meta_tags %> <%# クロスサイトスクリプティング攻撃を緩和するコンテンツセキュリティポリシー（Content Security Policy: CSP） %>
+    <%= csp_meta_tag %> <%# クロスサイトリクエストフォージェリー（Cross-Site Request Forgery: CSRF）攻撃を緩和する %>
     <!-- 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
      -->

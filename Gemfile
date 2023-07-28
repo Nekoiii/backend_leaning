@@ -71,6 +71,10 @@ group :test do
   gem "webdrivers"
 end
 
+group :development do
+  gem 'guard'
+end
+
 gem 'graphql'
 gem 'graphql-batch'
 group :development do
@@ -82,3 +86,5 @@ gem 'htmlbeautifier'
 gem 'sassc'
 
 gem 'aws-sdk-s3'
+
+

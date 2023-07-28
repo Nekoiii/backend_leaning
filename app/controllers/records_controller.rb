@@ -1,7 +1,12 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show]
+  before_action :set_title
 
-  def index
+  def set_title
+    @title = "Record"
+  end
+
+  def index  
     # Debug : https://codeclub965.com/?p=1520
     #Rails.logger.debug "aaaaaaa"
     @records=Record.all
@@ -10,6 +15,7 @@ class RecordsController < ApplicationController
   end
   
   def new
+    @title = "New Record"
     # Use another layout instead fo the default one
     render layout: 'test_layout_1'
     @record=Record.new
