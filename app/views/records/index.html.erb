@@ -7,7 +7,8 @@
 <div>Total records: <%= @totle_records_count %></div>
 <div class='flex-box'><div class="icon-overflow">! Overflow Records</div>: <%= @overflow_records_count %></div>
  
-<button class='button-blue'>Add New Record</button>
+<%= button_to "Add New Record", new_record_path, class: "button-blue" , method: :get%>
+
 
 <p><%= pluralize(Record.count, 'record')  %></p>
 <ul class='records_list'>

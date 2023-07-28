@@ -10,6 +10,8 @@ class RecordsController < ApplicationController
   end
   
   def new
+    # Use another layout instead fo the default one
+    render layout: 'test_layout_1'
     @record=Record.new
   end
 
