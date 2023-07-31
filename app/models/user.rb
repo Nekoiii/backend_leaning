@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :records
 
-  validates :name, presence: true, length:{minimum:1, maximum:10}
+  validates :name, presence: true, length:{minimum:1, maximum:30}
 
 
   after_create :oncreate

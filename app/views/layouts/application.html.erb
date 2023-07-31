@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= [@title, APP_NAME].compact.join(' | ') %></title>
+    <title><%= full_title(@title)  %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %> <%# クロスサイトスクリプティング攻撃を緩和するコンテンツセキュリティポリシー（Content Security Policy: CSP） %>
     <%= csp_meta_tag %> <%# クロスサイトリクエストフォージェリー（Cross-Site Request Forgery: CSRF）攻撃を緩和する %>
