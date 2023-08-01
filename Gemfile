@@ -81,6 +81,8 @@ group :development do
   gem 'graphiql-rails'
 end
 
+gem 'rails-controller-testing'
+
 gem 'htmlbeautifier'
 
 gem 'sassc'
