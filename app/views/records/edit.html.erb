@@ -34,10 +34,8 @@ Editing---
       <%= f.collection_select :machine_id, Machine.all, :id, :name %>
     </div>
 
-    <div class="field">
-      <%= f.label :user %>
-      <%= f.collection_select :user_id, User.all, :id, :name %>
-    </div>
+
+    <%= f.collection_check_boxes :user_ids, User.all, :id, :name %>
 
     <%#  Add new imgs %>
     <div class="field">

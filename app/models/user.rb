@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  has_many :records
-
+  has_many :user_records
+  has_many :records, through: :user_records
+  
   validates :name, presence: true, length:{minimum:1, maximum:30}
 
 

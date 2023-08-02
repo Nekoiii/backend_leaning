@@ -15,12 +15,15 @@
   <% end %>
 
 
-  <% if @record.user.present?  %>
-    User name:
-    <%= @record.user.name %>
+  <% if @record.users.present?  %>
+    Recorders names:
+    <% @record.users.each do |user| %>
+      <%= user.name %>
+    <% end %>
   <% else %>
-    <p>No recorder's name</p>
+    <p>No recorders' names.</p>
   <% end %>
+
 
   <% @record.images.each do |image| %>
     <div><%= image_tag image , :class => "record_img_thumbnail"%></div>

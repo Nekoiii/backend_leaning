@@ -1,6 +1,8 @@
 class Record < ApplicationRecord
   belongs_to :machine
-  belongs_to :user
+
+  has_many :user_records
+  has_many :users, through: :user_records
 
   has_many_attached :images
 

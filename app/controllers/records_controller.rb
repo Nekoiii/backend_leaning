@@ -24,6 +24,7 @@ class RecordsController < ApplicationController
 
   def set_record
     @record=Record.find(params[:id])
+    @users = @record.users
   end
 
   def destroy
@@ -96,14 +97,14 @@ class RecordsController < ApplicationController
     redirect_to @record
   end
   
-
   private
 
   # strong parameters: https://ichigick.com/rails-strong-parameter/
   def record_params
-    params.require(:record).permit( :title, :content, 
-      :machine_id, :user_id, :record_type, :record_status,
-      :images => [], :images_to_delete => [])
+    params.require(:record).permit(
+      :title, :content, 
+      :machine_id, :record_type, :record_status,
+      :images => [], :images_to_delete => [], :user_ids => [])
   end
 
 
