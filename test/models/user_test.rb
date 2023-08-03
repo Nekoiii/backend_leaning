@@ -4,7 +4,9 @@ class UserTest < ActiveSupport::TestCase
 
   def setup
     @user = User.new(
-      name:"aaa"
+      name:"aaa",
+      password:'xxxxxx',
+      password_confirmation:'xxxxxx'
     )
   end
 
@@ -38,6 +40,15 @@ class UserTest < ActiveSupport::TestCase
     duplicate_user = @user.dup
     @user.save
     assert_not duplicate_user.valid?
+  end
+
+  test "password should be present (nonblank)" do
+    @user.password = @user.password_confirmation = " " * User::PASSWORD_LENGTH_MIN
+    assert_not @user.valid?
+  end
+  test "password should have a minimum length" do
+    @user.password = @user.password_confirmation = "a" * (User::PASSWORD_LENGTH_MIN-1)
+    assert_not @user.valid?
   end
 
 end

@@ -1,9 +1,10 @@
 class User < ApplicationRecord
   NAME_LENGTH_MIN = 1
   NAME_LENGTH_MAX = 30
-  # regex for email: https://qiita.com/HIROKOBA/items/1358aa2e9652688698ee
+  PASSWORD_LENGTH_MIN = 6
   EMAIL_LENGTH_MAX = 255
-  VALID_EMAIL_REGEX= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i  
+  VALID_EMAIL_REGEX= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    # regex for email: https://qiita.com/HIROKOBA/items/1358aa2e9652688698ee
+
 
   has_many :user_records
   has_many :records, through: :user_records
@@ -13,6 +14,9 @@ class User < ApplicationRecord
                                      allow_blank: true,
                                      format: { with: VALID_EMAIL_REGEX},
                                      uniqueness: true
+                                     
+  has_secure_password
+  validates :password, presence: true, length:{minimum:PASSWORD_LENGTH_MIN}
 
 
   before_save :prepare_for_save

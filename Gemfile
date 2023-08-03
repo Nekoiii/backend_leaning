@@ -89,4 +89,6 @@ gem 'sassc'
 
 gem 'aws-sdk-s3'
 
+gem "bcrypt","3.1.18"
+
 
