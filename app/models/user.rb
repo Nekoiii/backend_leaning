@@ -10,13 +10,15 @@ class User < ApplicationRecord
   
   validates :name, presence: true, length:{minimum:NAME_LENGTH_MIN, maximum:NAME_LENGTH_MAX}
   validates :email, presence: false, length:{maximum:EMAIL_LENGTH_MAX},
-                                     format: { with: VALID_EMAIL_REGEX, allow_blank: true},
-                                     uniqueness: { case_sensitive: false, allow_blank: true}
+                                     allow_blank: true,
+                                     format: { with: VALID_EMAIL_REGEX},
+                                     uniqueness: true
 
 
   before_save :prepare_for_save
   def prepare_for_save
-    self.email = email.downcase
+    # &. : https://thoughtbot.com/blog/ruby-safe-navigation
+    email&.downcase!
   end
 
   after_create :oncreate
