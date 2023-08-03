@@ -12,20 +12,21 @@
 
 .record_edit_page .img_container .img-deleted {
   opacity: 0.2;
-}
-.record_edit_page .img_container .label-deleted {
+
+  .label-deleted {
   position: absolute;
   color: var(--red-2);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-}
-.record_edit_page .img_container .button-delete {
-  position: absolute;
-  padding: 0 5px;
-  font-size: 57px;
-  top: -20%;
-  right: -20%;
-  z-index: 3;
+  }
+  .button-delete {
+    position: absolute;
+    padding: 0 5px;
+    font-size: 57px;
+    top: -20%;
+    right: -20%;
+    z-index: 3;
+  }
 }

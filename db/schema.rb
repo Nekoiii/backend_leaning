@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_01_132749) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_03_020820) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -64,19 +64,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_132749) do
     t.index ["machine_id"], name: "index_records_on_machine_id"
   end
 
-  create_table "user_records", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "record_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_id"], name: "index_user_records_on_record_id"
-    t.index ["user_id"], name: "index_user_records_on_user_id"
-  end
-
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
   end
 
   create_table "users_records", charset: "utf8mb4", force: :cascade do |t|
@@ -92,8 +84,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_132749) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "images", "records"
   add_foreign_key "records", "machines"
-  add_foreign_key "user_records", "records"
-  add_foreign_key "user_records", "users"
   add_foreign_key "users_records", "records"
   add_foreign_key "users_records", "users"
 end
