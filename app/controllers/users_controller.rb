@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @record = @user.records
+    @records = @user.records
   end
 
 
