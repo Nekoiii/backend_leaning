@@ -4,30 +4,12 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
-    end
-
-    field :record, [RecordType], null: false,
-      description: "Get record"
-    def record
-      Record.all
-    end
-
-    field :machine, [MachineType], null: false,
-      description: "Get machine"
-    def machine
-      Machine.all
-    end
-
+    ''' User '''
     field :users, [UserType], null: false,
       description: "Get all users"
     def users
       User.all
     end
-
     field :user, UserType, null: false ,
       description: "Get user with id" do
       argument :id, ID, required: true
@@ -35,14 +17,39 @@ module Types
     def user(id:)
       User.find(id)
     end   
+    
 
-    '''field :user do
-      type UserType
-      argument :id, !types.ID
-      resolve ->(obj, args, ctx) {
-        User.find(args[:id])
-      }
-    end'''
+    ''' Record '''
+    field :records, [RecordType], null: false,
+      description: "Get record"
+    def records
+      Record.all
+    end
+    field :record, RecordType, null: false ,
+      description: "Get record with id" do
+      argument :id, ID, required: true
+    end
+    def record(id:)
+      Record.find(id)
+    end   
+
+
+    
+    ''' Machine '''
+    field :machines, [MachineType], null: false,
+      description: "Get machine"
+    def machines
+      Machine.all
+    end
+    field :machine, MachineType, null: false ,
+      description: "Get machine with id" do
+      argument :id, ID, required: true
+    end
+    def machine(id:)
+      Machine.find(id)
+    end   
+
+
 
   end
 end

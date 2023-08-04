@@ -9,13 +9,12 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
-    '''
-    field :records, [Types::RecordType], null: true do
-      resolve ->(user, args, ctx) {
-        user.records
-      }
+    
+    field :records, [Types::RecordType]
+    def records
+      object.records
     end
-    '''
+
 
 
   end

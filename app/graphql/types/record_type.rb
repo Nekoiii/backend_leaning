@@ -13,6 +13,19 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
 
+    field :machine, Types::MachineType
+    def machine
+      object.machine
+    end
+
+    field :users, [Types::UserType]
+    def users
+      object.users
+    end
+
+
+
+
     '''
     The methods defined here can only be called in graphql, 
     and cannot be directly used in the ActiveRecord model !!!!
@@ -25,13 +38,6 @@ module Types
     end
 
 
-    def machine
-      Machine.find(object.machine_id)
-    end
-
-    def user
-      User.find(object.user_id)
-    end
 
 
 
