@@ -5,5 +5,6 @@ module Types
     def url
       Rails.application.routes.url_helpers.rails_blob_url(object, only_path: true)
     end
+    
   end
 end

@@ -10,14 +10,14 @@
     <div>Record type:<%= @record.record_type %></div>
   <% end %>
 
-  <% if @record.machine.present?  %>
-    <div>Machine id:<%= @record.machine.id %></div>
+  <% if @machine.present?  %>
+    <div>Machine id:<%= @machine.id %></div>
   <% end %>
 
 
-  <% if @record.users.present?  %>
+  <% if @users.present?  %>
     Recorders names:
-    <% @record.users.each do |user| %>
+    <% @users.each do |user| %>
       <%= user.name %>
     <% end %>
   <% else %>
@@ -25,10 +25,11 @@
   <% end %>
 
 
-  <% @record.images.each do |image| %>
-    <div><%= image_tag image , :class => "record_img_thumbnail"%></div>
-  <% end %>
-
+  <div class='flex-box flex-wrap'>
+    <% @record.images.each do |image| %>
+      <div><%= image_tag image , :class => "record_img_thumbnail"%></div>
+    <% end %>
+  </div>
 
   <% if @record.content.present?  %>
     <div><%= @record.content %></div>

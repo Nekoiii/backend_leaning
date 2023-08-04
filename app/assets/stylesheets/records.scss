@@ -10,16 +10,19 @@
   width: 10vw;
 }
 
-.record_edit_page .img_container .img-deleted {
-  opacity: 0.2;
+.record_edit_page .img_container {
+  
+  .img-deleted{
+    opacity: 0.2;
+  }
 
   .label-deleted {
-  position: absolute;
-  color: var(--red-2);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+    position: absolute;
+    color: var(red-2);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
   }
   .button-delete {
     position: absolute;

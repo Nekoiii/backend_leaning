@@ -29,3 +29,10 @@
 .hidden {
   display: none;
 }
+
+.font-small{
+  font-size: var(--font-small);
+}
+.font-big{
+  font-size: var(--font-big);
+}

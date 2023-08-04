@@ -1,45 +1,41 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: [:show]
+  before_action :set_record, only: [:show, :destroy, :edit, :update]
   before_action :set_title
 
+  def set_record
+    @record=Record.find(params[:id])
+    @users = @record.users
+    @machine = @record.machine
+  end
   def set_title
     @title = "Record"
   end
 
   def index  
-    # Debug : https://codeclub965.com/?p=1520
-    #Rails.logger.debug "aaaaaaa"
+    # Rails.logger.debug : https://codeclub965.com/?p=1520
+    #Rails.logger.debug 'qqqqq'+Record::RECORD_STATUS.keys[1].to_s
     @records=Record.all
     @totle_records_count=Record.count
-    @overflow_records_count = Record.where(record_status: 'overflow').count
+    @overflow_records_count = Record.where(
+      record_status: Record::RECORD_STATUS.keys[1].to_s).count
   end
   
   def new
-    @title = "New Record"
     # Use another layout instead fo the default one
+    @title = "New Record"
     render layout: 'test_layout_1'
     @record=Record.new
   end
 
-
-  def set_record
-    @record=Record.find(params[:id])
-    @users = @record.users
-  end
-
   def destroy
-    @record = Record.find(params[:id])
     @record.destroy
     redirect_to records_path, notice: "Record with ID #{params[:id]} was successfully deleted."
   end
 
   def edit
-    @record=Record.find(params[:id])
   end
 
   def update
-    @record = Record.find(params[:id])
-
     # Update images with .attach() instead of replacing old ones
     # params methos: https://ichigick.com/rails-params/
     if params[:record][:images]

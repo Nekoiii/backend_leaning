@@ -54,12 +54,13 @@ Editing---
     </div>
 
     <%# Show imgs %>
-    <div class='flex-box'>
+    <div class='flex-box flex-wrap'>
       <% @record.images.each do |image| %>
         <div class='img_container'>
           <%= image_tag image , :class => 'record_img_thumbnail'%>
           <%# rails check box:  https://www.sejuku.net/blog/27132 %>
-          <%= check_box_tag 'images_to_delete[]', image.id ,false, :style => 'display:none;'%>
+          <%# https://railsdoc.com/page/check_box_tag %>
+          <%= check_box_tag 'images_to_delete[]', image.id, checked=false, class: 'hidden'%>
           <span class="button-delete" data-image-id="<%= image.id %>">x</span>
         </div>
       <% end %>
@@ -75,24 +76,28 @@ Editing---
   let all_new_imgs=[]
   
   // Use my button to call the imgs upload field
-  document.getElementById('img_upload_button').addEventListener('click', event=> {
-    event.preventDefault();
+  document.getElementById('img_upload_button').addEventListener('click', e=> {
+    e.preventDefault();
     document.getElementById('img_upload_field').click();
   });
   // Add new img to all new imgs list
-  function show_new_imgs(event) {
-    new_imgs=Array.from(event.target.files);
+  function show_new_imgs(e) {
+
+    //Upload imgs files
+    new_imgs=Array.from(e.target.files); 
     all_new_imgs.unshift(...new_imgs)
     console.log('all_new_imgs',all_new_imgs)
 
     // Preview after adding new imgs
     let imagePreview = document.getElementById('image-preview');
     imagePreview.innerHTML = '';  // clear up existing previews
-    all_new_imgs.forEach(function(file) {
+    all_new_imgs.forEach(file => {
       let reader = new FileReader();
-      reader.onload = function(e) {
+      // *Can't change to (e) => {} here because arrow functions don't have 
+      // their own 'this' so .onload() will points to the outside object!!!! 
+      reader.onload = function(event) {
         let img = document.createElement('img');
-        img.src = e.target.result;
+        img.src = event.target.result;
         img.classList.add('record_img_thumbnail');
         imagePreview.appendChild(img);
       }
@@ -102,35 +107,39 @@ Editing---
   
   
   // Delete img
-  document.querySelectorAll('.button-delete').forEach(function(button) {
-    button.addEventListener('click', function(event) {
+  document.querySelectorAll('.button-delete').forEach(button => {
+    button.addEventListener('click', e => {
       let container = button.parentNode;
-      let imageId = button.dataset.imageId;
-      let checkbox = document.querySelector('input[name="images_to_delete[]"][value="' + imageId + '"]');
-      let imgElement = container.querySelector('.record_img_thumbnail');
+      let image_id = button.dataset.imageId;
+      let checkbox = document.querySelector('input[name="images_to_delete[]"][value="' + image_id + '"]');
+      let img_element = container.querySelector('.record_img_thumbnail');
 
+      // Switch checked box
       checkbox.checked = !checkbox.checked;
 
       if (checkbox.checked) {
-        imgElement.classList.add('img-deleted');
+        // Add style and show 'Deleted' label
+        img_element.classList.add('img-deleted');
 
-        let labelDeleted = document.createElement('span');
-        labelDeleted.textContent = 'Deleted';
-        labelDeleted.classList.add('label-deleted');
-        container.appendChild(labelDeleted);
+        let label_deleted = document.createElement('span');
+        label_deleted.textContent = 'Deleted';
+        label_deleted.classList.add('label-deleted');
+        container.appendChild(label_deleted);
       } else {
-        imgElement.classList.remove('img-deleted');
+        // Remove style and 'Deleted' label
+        img_element.classList.remove('img-deleted');
 
-        let labelDeleted = container.querySelector('.label-deleted');
-        if (labelDeleted) {
-          container.removeChild(labelDeleted);
+        let label_deleted = container.querySelector('.label-deleted');
+        if (label_deleted) {
+          container.removeChild(label_deleted);
         }
       }
 
-      let imagesToDelete = document.getElementsByName('images_to_delete[]');
-      let selectedImages = Array.from(imagesToDelete).filter(checkbox => checkbox.checked);
-      console.log('Images to delete:', selectedImages.map(checkbox => checkbox.value));
-      //console.log('Ixxx:', document.getElementsByName('images_to_delete[]'));
+      // Console log
+      let img_delete_check_boxes = document.getElementsByName('images_to_delete[]');
+      let selected_imgs = Array.from(img_delete_check_boxes).filter(checkbox => checkbox.checked);
+      console.log('Images to delete:', selected_imgs.map(checkbox => checkbox.value));
+      
     });
   });  
 
