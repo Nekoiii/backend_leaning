@@ -6,24 +6,15 @@ Rails.application.routes.draw do
       post 'add_images'
     end
   end
-  
-  resources :users, only: [:index,:show]
-  resources :machines, only: [:index,:show]
+
+  resources :users, only: %i[index show]
+  resources :machines, only: %i[index show]
 
   root 'pages#home'
-  get  "/signup",  to: "users#new"
+  get  '/signup', to: 'users#new'
 
-
-  
-
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
-  end
-  post "/graphql", to: "graphql#execute"
-
+  mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
+  post '/graphql', to: 'graphql#execute'
 
   get 'aws', to: 'aws#index'
-
-
-  
 end

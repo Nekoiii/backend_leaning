@@ -1,33 +1,32 @@
-require "test_helper"
+require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-
   def setup
     @user = User.new(
-      name:"aaa",
-      password:'xxxxxx',
-      password_confirmation:'xxxxxx'
+      name: 'aaa',
+      password: 'xxxxxx',
+      password_confirmation: 'xxxxxx'
     )
   end
 
-  test "should be valid" do
+  test 'should be valid' do
     assert @user.valid?, @user.errors.full_messages
   end
-  
-  test "name should be present" do
-    @user.name = "     "
+
+  test 'name should be present' do
+    @user.name = '     '
     assert_not @user.valid?
   end
-  test "name should not be too long" do
-    @user.name = "a" * (User::NAME_LENGTH_MAX + 1)
-    assert_not @user.valid?   
+  test 'name should not be too long' do
+    @user.name = 'a' * (User::NAME_LENGTH_MAX + 1)
+    assert_not @user.valid?
   end
-  test "name should not be too short" do
-    @user.name = "a" * (User::NAME_LENGTH_MIN - 1)
+  test 'name should not be too short' do
+    @user.name = 'a' * (User::NAME_LENGTH_MIN - 1)
     assert_not @user.valid?
   end
 
-  test "email validation should reject invalid addresses" do
+  test 'email validation should reject invalid addresses' do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
@@ -35,20 +34,20 @@ class UserTest < ActiveSupport::TestCase
       assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
     end
   end
-  test "email addresses should be unique" do    
+  test 'email addresses should be unique' do
     return unless @user.email.present?
+
     duplicate_user = @user.dup
     @user.save
     assert_not duplicate_user.valid?
   end
 
-  test "password should be present (nonblank)" do
-    @user.password = @user.password_confirmation = " " * User::PASSWORD_LENGTH_MIN
+  test 'password should be present (nonblank)' do
+    @user.password = @user.password_confirmation = ' ' * User::PASSWORD_LENGTH_MIN
     assert_not @user.valid?
   end
-  test "password should have a minimum length" do
-    @user.password = @user.password_confirmation = "a" * (User::PASSWORD_LENGTH_MIN-1)
+  test 'password should have a minimum length' do
+    @user.password = @user.password_confirmation = 'a' * (User::PASSWORD_LENGTH_MIN - 1)
     assert_not @user.valid?
   end
-
 end

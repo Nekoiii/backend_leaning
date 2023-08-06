@@ -1,6 +1,6 @@
 class Initialization2 < ActiveRecord::Migration[7.0]
   def change
-    """create_table :users do |t|
+    ''"create_table :users do |t|
       t.string :name
 
       t.timestamps
@@ -20,9 +20,9 @@ class Initialization2 < ActiveRecord::Migration[7.0]
       t.string :name
 
       t.timestamps
-    end"""
+    end"''
 
-    #add_reference :records, :user, foreign_key: true
-    #add_reference :records, :machine, foreign_key: true
+    # add_reference :records, :user, foreign_key: true
+    # add_reference :records, :machine, foreign_key: true
   end
 end

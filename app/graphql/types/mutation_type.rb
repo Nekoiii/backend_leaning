@@ -1,6 +1,5 @@
 module Types
   class MutationType < Types::BaseObject
-
     field :create_user, mutation: Mutations::CreateUser
 
     '''
@@ -12,6 +11,5 @@ module Types
       User.create(name:name)
     end
     '''
-
   end
 end

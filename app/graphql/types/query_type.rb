@@ -3,53 +3,43 @@ module Types
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
-
-    ''' User '''
     field :users, [UserType], null: false,
-      description: "Get all users"
+                              description: 'Get all users'
     def users
       User.all
     end
-    field :user, UserType, null: false ,
-      description: "Get user with id" do
+    field :user, UserType, null: false,
+                           description: 'Get user with id' do
       argument :id, ID, required: true
     end
     def user(id:)
       User.find(id)
-    end   
-    
+    end
 
-    ''' Record '''
     field :records, [RecordType], null: false,
-      description: "Get record"
+                                  description: 'Get record'
     def records
       Record.all
     end
-    field :record, RecordType, null: false ,
-      description: "Get record with id" do
+    field :record, RecordType, null: false,
+                               description: 'Get record with id' do
       argument :id, ID, required: true
     end
     def record(id:)
       Record.find(id)
-    end   
+    end
 
-
-    
-    ''' Machine '''
     field :machines, [MachineType], null: false,
-      description: "Get machine"
+                                    description: 'Get machine'
     def machines
       Machine.all
     end
-    field :machine, MachineType, null: false ,
-      description: "Get machine with id" do
+    field :machine, MachineType, null: false,
+                                 description: 'Get machine with id' do
       argument :id, ID, required: true
     end
     def machine(id:)
       Machine.find(id)
-    end   
-
-
-
+    end
   end
 end

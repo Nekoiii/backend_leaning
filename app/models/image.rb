@@ -4,5 +4,4 @@ class Image < ApplicationRecord
   def oncreate
     puts 'Successfully created a new image'
   end
-
 end
