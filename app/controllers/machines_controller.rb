@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MachinesController < ApplicationController
   def index
     @machines = Machine.all

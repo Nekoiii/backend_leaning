@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 machine1 = Machine.create(name: 'machine1')
 user1 = User.create(name: 'user1')
 

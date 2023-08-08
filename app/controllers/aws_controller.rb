@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AwsController < ApplicationController
   def index
     # * for test
