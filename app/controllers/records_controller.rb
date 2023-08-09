@@ -16,11 +16,11 @@ class RecordsController < ApplicationController
 
   def index
     # Rails.logger.debug : https://codeclub965.com/?p=1520
-    # Rails.logger.debug 'qqqqq'+Record::RECORD_STATUS.keys[1].to_s
+    # Rails.logger.debug 'qqqqq'+Types::RecordStatusEnumType::RECORD_STATUS.keys[1].to_s
     @records = Record.all
     @totle_records_count = Record.count
     @overflow_records_count = Record.where(
-      record_status: Record::RECORD_STATUS.keys[1].to_s
+      record_status: Types::RecordStatusEnumType::RECORD_STATUS.keys[1].to_s
     ).count
   end
 
