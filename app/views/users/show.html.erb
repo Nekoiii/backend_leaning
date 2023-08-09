@@ -1,10 +1,12 @@
 <div class='users_show_page'>
 
-<h3><%= @user.name %></h3>
+<%= image_tag avatar_for(@user), alt: 'User Avatar', class: 'avatar' %>
+<%#= image_tag @user.avatar, alt: 'Avatar', class:'avatar'%>
+<div><%= @user.name %></div>
 
+<div>Email:<%= @user.email %></div>
 
-<h6>Records :</h6>
-
+<div>Records :</div>
 <ul>
   <% @user.records.each do |record| %>
   <li>

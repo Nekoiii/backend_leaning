@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: %i[index show]
+  resources :users, only: %i[index show new create]
   resources :machines, only: %i[index show]
 
   root 'pages#home'

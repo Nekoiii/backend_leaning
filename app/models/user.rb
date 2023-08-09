@@ -7,6 +7,7 @@ class User < ApplicationRecord
   EMAIL_LENGTH_MAX = 255
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i # regex for email: https://qiita.com/HIROKOBA/items/1358aa2e9652688698ee
 
+  has_one_attached :avatar
   has_many :user_records
   has_many :records, through: :user_records
 
@@ -16,6 +17,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
 
+  # No need to added password col but password_digest col in uses table when using has_secure_password
   has_secure_password
   validates :password, presence: true, length: { minimum: PASSWORD_LENGTH_MIN }
 
@@ -30,4 +32,11 @@ class User < ApplicationRecord
     puts 'Successfully created a new user: ' \
          "ID - #{id}, Name: #{name} ."
   end
+
+  # def avatar
+  #   default_avatar_path='avatar-1.jpg'
+  #   ActionController::Base.helpers.asset_path(default_avatar_path)
+  # end
+
+
 end
