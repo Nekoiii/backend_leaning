@@ -26,7 +26,8 @@ class UsersController < ApplicationController
     end
 
     if @user.save
-      redirect_to users_path
+      flash[:success] = "Welcome, #{@user.name}!"
+      redirect_to @user
     else
       render 'new', status: :unprocessable_entity
     end
@@ -36,7 +37,8 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :avatar, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :avatar,
+                       :password, :password_confirmation)
     end
   
 

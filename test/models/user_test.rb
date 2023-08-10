@@ -52,4 +52,10 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = 'a' * (User::PASSWORD_LENGTH_MIN - 1)
     assert_not @user.valid?
   end
+
+
+
+
+
+
 end
