@@ -1,0 +1,14 @@
+<div class='error_messages'>
+
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li class='err_msg_item'><%= msg %></li>
+  <% end %>
+<% end %>
+
+
+</div>
+
+
+
+

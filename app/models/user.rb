@@ -7,7 +7,7 @@ class User < ApplicationRecord
   EMAIL_LENGTH_MAX = 255
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i # regex for email: https://qiita.com/HIROKOBA/items/1358aa2e9652688698ee
 
-  has_one_attached :avatar
+  has_one_attached :avatar 
   has_many :user_records
   has_many :records, through: :user_records
 
@@ -32,11 +32,6 @@ class User < ApplicationRecord
     puts 'Successfully created a new user: ' \
          "ID - #{id}, Name: #{name} ."
   end
-
-  # def avatar
-  #   default_avatar_path='avatar-1.jpg'
-  #   ActionController::Base.helpers.asset_path(default_avatar_path)
-  # end
 
 
 end

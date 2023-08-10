@@ -57,16 +57,16 @@ class RecordsController < ApplicationController
 
   private
 
-  def attach_images
-    params[:record][:images] = @record.images.attach(params[:record][:images])
-  end
-
-  def delete_images
-    params[:images_to_delete].each do |image_id|
-      image = @record.images.find(image_id)
-      image.purge
+    def attach_images
+      params[:record][:images] = @record.images.attach(params[:record][:images])
     end
-  end
+
+    def delete_images
+      params[:images_to_delete].each do |image_id|
+        image = @record.images.find(image_id)
+        image.purge
+      end
+    end
 
   public
 
@@ -91,22 +91,22 @@ class RecordsController < ApplicationController
 
   private
 
-  def upload_image_to_s3(image_file, s3, bucket_name)
-    name = image_file.original_filename
-    obj = s3.bucket(bucket_name).object(name)
-    obj.put(body: File.read(image_file.tempfile), acl: 'public-read')
+    def upload_image_to_s3(image_file, s3, bucket_name)
+      name = image_file.original_filename
+      obj = s3.bucket(bucket_name).object(name)
+      obj.put(body: File.read(image_file.tempfile), acl: 'public-read')
 
-    image = Image.new(image_path: obj.public_url)
-    image.record = @record
-    image.save!
-  end
+      image = Image.new(image_path: obj.public_url)
+      image.record = @record
+      image.save!
+    end
 
-  # strong parameters: https://ichigick.com/rails-strong-parameter/
-  def record_params
-    params.require(:record).permit(
-      :title, :content,
-      :machine_id, :record_type, :record_status,
-      images: [], images_to_delete: [], user_ids: []
-    )
-  end
+    # strong parameters: https://ichigick.com/rails-strong-parameter/
+    def record_params
+      params.require(:record).permit(
+        :title, :content,
+        :machine_id, :record_type, :record_status,
+        images: [], images_to_delete: [], user_ids: []
+      )
+    end
 end

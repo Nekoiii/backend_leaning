@@ -4,6 +4,7 @@
 
 <div>
   <%= form_with model: @user, local: true, multipart: true do |f| %>
+    <%= render 'shared/error_messages' %>
     <div class="field">
       <%= f.label :name %>
       <%= f.text_field :name %>
@@ -17,15 +18,15 @@
       <%= f.password_field :password %>
     </div>
     <div class="field">
-      <%= f.label :password_digest %>
-      <%= f.password_field :password_digest %>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
     </div>
     <div class="field">
       <%= f.label :avatar %>
       <%= f.file_field :avatar %>
     </div>
 
-    <%= f.submit 'Sign up', class: "button button-blue"  %>
+    <%= f.submit 'Create account', class: "button button-blue"  %>
   
   <% end %>
 </div>

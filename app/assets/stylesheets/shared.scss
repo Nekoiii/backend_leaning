@@ -36,3 +36,15 @@
 .font-big{
   font-size: var(--font-big);
 }
+
+
+.error_messages{
+  .err_msg_item{
+    color: var(--red-2);
+  }
+}
+.field_with_errors input{
+  border: 2px solid var(--red-1);
+}
+
+
