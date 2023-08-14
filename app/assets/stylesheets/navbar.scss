@@ -3,3 +3,11 @@
 .navbar{
   justify-content: space-between;
 }
+
+
+.navbar div a:not(:last-child) {
+  border-right: 2px solid var(--blue-1); 
+  padding-right: 5px;
+  margin-right: 5px;
+}
+

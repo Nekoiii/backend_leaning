@@ -12,12 +12,16 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[index show new create]
   resources :machines, only: %i[index show]
-
+  resources :sessions, only: [:new, :create, :destroy]
+  
   root 'pages#home'
   get  '/signup', to: 'users#new', as: 'signup'
+  get    "/login",   to: "sessions#new"
+  post   "/login",   to: "sessions#create"
+  delete "/logout",  to: "sessions#destroy"
+
 
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
   post '/graphql', to: 'graphql#execute'
-
   get 'aws', to: 'aws#index'
 end

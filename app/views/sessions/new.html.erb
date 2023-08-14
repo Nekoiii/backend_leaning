@@ -1,0 +1,21 @@
+<div class='login_page'>
+
+<h3>Log In</h3>
+
+  <%= form_with(url: login_path, scope: :session) do |f|  %>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+
+    <%= f.submit "Log in", class: "button button-blue" %>
+
+  <% end %>
+
+<%= link_to "Go to sign up", signup_path %>
+
+</div>
