@@ -48,7 +48,10 @@
 }
 
 .flash{
-  .alert-success{
-  color: var(--red-1);
-  }
+  .alert-success .alert-danger{
+    color: var(--red-1);
+    border: 2px solid var(--red-1);
+    width: fit-content;
+    padding: 0 5px;
+    border-radius: 3px;  }
 }
