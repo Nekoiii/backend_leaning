@@ -33,5 +33,13 @@ class User < ApplicationRecord
          "ID - #{id}, Name: #{name} ."
   end
 
+  # https://railstutorial.jp/chapters/basic_login?version=7.0#cha-basic_login
+  # (for test/fixtures/users.yml)
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
 
 end

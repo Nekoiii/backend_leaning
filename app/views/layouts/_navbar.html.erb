@@ -8,9 +8,16 @@
   </div>
 
   <div class='flex-box'>
-    <%= link_to 'SIGN UP',signup_path %>
-    <%= link_to 'LOG IN',login_path %>
+    <%  if logged_in? %>
+      <%= link_to "Profile", current_user %>
+      <%= link_to 'LOG OUT', logout_path, data: { "turbo-method": :delete } %>
+    <% else %>
+      <%= link_to 'SIGN UP',signup_path %>
+      <%= link_to 'LOG IN',login_path %>
+    <% end %>
   </div>
+
+  
 
 
 </div>

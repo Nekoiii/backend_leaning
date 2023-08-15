@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    if user &.authenticate(params[:session][:password])
       '''
       reset_session: https://techtechmedia.com/session-rails/
       セッションリプレイ攻撃（session replay attack）：https://techracho.bpsinc.jp/hachi8833/2023_06_02/130443 
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       セッション固定攻撃（session fixation）：https://railsguides.jp/security.html#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E5%9B%BA%E5%AE%9A%E6%94%BB%E6%92%83 
       '''
       reset_session  
-       
+
       log_in user
       redirect_to user
     else    
@@ -30,6 +30,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    log_out
+    # see_other: Return 303 status code
+    redirect_to root_url, status: :see_other
   end
   
 end

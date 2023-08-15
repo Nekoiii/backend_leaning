@@ -12,7 +12,13 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
-    # Add more helper methods to be used by all tests here...
+    # The name can't be the same as logged_in? method in sessions_helper.rb
+    # *But can't use the name test_logged_in!!!! Because using the prefix test_ 
+    # in a method name typically designates a test case, so using it for a helper 
+    # function might cause confusion.
+    def is_logged_in?
+      !session[:user_id].nil?
+    end
 
     include ApplicationHelper
   end
