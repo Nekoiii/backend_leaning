@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       セッション固定攻撃（session fixation）：https://railsguides.jp/security.html#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E5%9B%BA%E5%AE%9A%E6%94%BB%E6%92%83 
       '''
       reset_session  
-
+      remember user
       log_in user
       redirect_to user
     else    

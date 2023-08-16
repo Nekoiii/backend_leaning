@@ -10,6 +10,8 @@
   <div class='flex-box'>
     <%  if logged_in? %>
       <%= link_to "Profile", current_user %>
+      <%# run this command to enabel turbo: 
+          rails importmap:install turbo:install stimulus:install %>
       <%= link_to 'LOG OUT', logout_path, data: { "turbo-method": :delete } %>
     <% else %>
       <%= link_to 'SIGN UP',signup_path %>
