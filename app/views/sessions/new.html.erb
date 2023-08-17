@@ -12,10 +12,15 @@
       <%= f.password_field :password %>
     </div>
 
+    <%= f.label :remember_me , class: 'display-block' do%>
+      <%= f.check_box :remember_me %>
+      <span>Remember me</span>
+    <% end %>
+        
+
     <%= f.submit "Log in", class: "button button-blue" %>
 
   <% end %>
 
 <%= link_to "Go to sign up", signup_path %>
-
 </div>
