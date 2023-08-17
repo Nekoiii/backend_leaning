@@ -49,6 +49,8 @@ class RememberingTest < UsersLogin
   test "login with remembering" do
     log_in_as(@user, remember_me: '1')
     assert_not cookies[:remember_token].blank?
+    # Use assigns() to access the @user instance variable set in the controller.
+    # assigns: https://stackoverflow.com/questions/8616508/what-does-assigns-do-in-ruby-on-rails
     assert_equal cookies[:remember_token], assigns(:user).remember_token
   end
 
