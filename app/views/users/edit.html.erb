@@ -1,0 +1,72 @@
+<div class='user_edit_page'>
+
+  <div>Editing <%= @user.id %></div>
+
+  <div>
+    <%= form_with model: @user, local:true, multipart: true do |f| %>
+
+      <div class='field'>
+
+        <%= image_tag(@user.avatar, 
+            alt: 'Avatar', 
+            size: '100x100',
+            id:'avatar_upload_btn', 
+            class:'avatar_upload_btn') if @user.avatar.attached? %><br>
+
+        <%= f.file_field :avatar, 
+            id: 'avatar_upload_field',
+            # onchange:'show_new_imgs(e)',
+            class:'hidden'
+        %>
+        <div>( Click to edit avatar )</div>
+      </div>
+
+
+      <div class='field'>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+      <div class='field'>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </div>
+      <div class='field'>
+        <%= f.label :password %>
+        <%= f.text_field :password %>
+      </div>
+      <div class='field'>
+        <%= f.label :password_confirmation %>
+        <%= f.text_field :password_confirmation %>
+      </div>
+      <%= f.submit 'Save', class: "button button-blue"  %>
+
+    <% end %>
+
+  </div>
+
+
+  <script>
+    document.getElementById('avatar_upload_btn').addEventListener('click', e=> {
+      console.log('avatar_upload_btn')
+      e.preventDefault();
+      document.getElementById('avatar_upload_field').click();
+    });
+
+    
+    document.getElementById('avatar_upload_field').addEventListener('change', function() {
+      const file = this.files[0];
+      const reader = new FileReader();
+
+      reader.onloadend = function() {
+        document.getElementById('avatar_upload_btn').src = reader.result; // Update preview
+      }
+
+      if (file) {
+        reader.readAsDataURL(file); // Read file and call onloadend
+      }
+    });
+
+    console.log('Avatar file: ', );
+
+  </script>
+</div>

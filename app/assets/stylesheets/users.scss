@@ -1,5 +1,17 @@
 
 
-.users_show_page .avatar{
-  width: 10vw;
+.users_show_page {
+  .avatar{
+    width: 10vw;
+  }
 }
+
+.user_edit_page{
+
+  .avatar_upload_btn:hover{
+    cursor: pointer;
+  }
+
+}
+
+

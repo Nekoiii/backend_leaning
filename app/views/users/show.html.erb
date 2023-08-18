@@ -1,19 +1,21 @@
 <div class='users_show_page'>
 
-<%= image_tag avatar_for(@user), alt: 'User Avatar', class: 'avatar' %>
-<div><%= @user.name %></div>
+  <%= render partial: 'user', locals: { user: @user } %>
 
-<div>Email:<%= @user.email %></div>
+  <div>Records of this user:</div>
+  <ul>
+    <% @user.records.each do |record| %>
+    <li>
+      <%= render partial: 'records/record', locals: { record: record } %>
+    <% end %>
+    </li>
+  </ul>
+  
 
-<div>Records :</div>
-<ul>
-  <% @user.records.each do |record| %>
-  <li>
-    <%= render partial: 'records/record', locals: { record: record } %>
-  <% end %>
-  </li>
-</ul>
-
+  <div>
+    <%= button_to 'Edit' , edit_user_path(@user), method: :get, class: "button-blue" %>
+    <%#= button_to "Delete", user_path(@user), method: :delete, class: "button-blue"  %>
+  </div>
 
 
 </div>

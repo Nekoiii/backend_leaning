@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[show destroy edit update]
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find(params[:id])
     @records = @user.records
   end
 
@@ -33,7 +39,17 @@ class UsersController < ApplicationController
     else
       render 'new', status: :unprocessable_entity
     end
+  end
 
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to @user, notice: 'Profile was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   private

@@ -10,9 +10,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: %i[index show new create]
+  resources :users, only: %i[index show new create edit]
   resources :machines, only: %i[index show]
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: %i[new create destroy]
   
   root 'pages#home'
   get  '/signup', to: 'users#new', as: 'signup'
