@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: %i[index show new create edit]
+  resources :users, only: %i[index show new create edit update]
   resources :machines, only: %i[index show]
   resources :sessions, only: %i[new create destroy]
   

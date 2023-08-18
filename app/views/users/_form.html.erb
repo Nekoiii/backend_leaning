@@ -1,4 +1,8 @@
-<%= form_with model: @user, local:true, multipart: true, class:'user_form' do |f| %>
+<%= form_with model: @user, 
+    local: true, 
+    multipart: true, 
+    class:'user_form',
+    data: { turbo: false } do |f| %>
   <%= render 'shared/error_messages' %>
   <div class='field'>
     <%= image_tag avatar_for(@user), 
@@ -19,15 +23,15 @@
   </div>
   <div class='field'>
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.email_field :email %>
   </div>
   <div class='field'>
     <%= f.label :password %>
-    <%= f.text_field :password %>
+    <%= f.password_field :password %>
   </div>
   <div class='field'>
     <%= f.label :password_confirmation %>
-    <%= f.text_field :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
   </div>
   <%= f.submit submit_button_label, class: "button button-blue"  %>
 

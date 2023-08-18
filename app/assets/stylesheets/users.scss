@@ -1,4 +1,9 @@
-
+.users_page{
+  .users_list{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
 
 .users_show_page {
   .avatar{

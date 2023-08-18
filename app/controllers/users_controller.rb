@@ -45,9 +45,16 @@ class UsersController < ApplicationController
   end
 
   def update
+    Rails.logger.debug('update-user')
+    if user_params[:avatar].present?
+      @user.avatar.attach(user_params[:avatar])
+    end
+    
     if @user.update(user_params)
       redirect_to @user, notice: 'Profile was successfully updated.'
     else
+      Rails.logger.debug('xxxxx-update-user')
+      Rails.logger.debug(@user.errors.full_messages.join("\n"))
       render :edit
     end
   end
