@@ -21,7 +21,9 @@ class User < ApplicationRecord
 
   # No need to added password col but password_digest col in uses table when using has_secure_password
   has_secure_password
-  validates :password, presence: true, length: { minimum: PASSWORD_LENGTH_MIN }
+  # has_secure_password will check for nil so can use 'allow_nil: true' here, 
+  # (or it will fail when editting user profile if the password is not filled in.)
+  validates :password, presence: true, length: { minimum: PASSWORD_LENGTH_MIN }, allow_nil: true
 
   before_save :prepare_for_save
   after_create :oncreate

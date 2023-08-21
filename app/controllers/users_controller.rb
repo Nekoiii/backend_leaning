@@ -2,6 +2,8 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show destroy edit update]
+  before_action :logged_in_user, only: %i[edit update]
+  before_action :correct_user, only: %i[edit update]
 
   def set_user
     @user = User.find(params[:id])
@@ -14,6 +16,7 @@ class UsersController < ApplicationController
 
   def show
     @records = @user.records
+    # debugger
   end
 
   def new
@@ -51,14 +54,29 @@ class UsersController < ApplicationController
     end
     
     if @user.update(user_params)
-      redirect_to @user, notice: 'Profile was successfully updated.'
+      flash[:success] = "Profile was successfully updated."
+      redirect_to @user
     else
       Rails.logger.debug('xxxxx-update-user')
       Rails.logger.debug(@user.errors.full_messages.join("\n"))
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in."
+      redirect_to login_url, status: :see_other
+    end
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    # current_user?() is the method defined in sessions_helper.rb
+    redirect_to(root_url, status: :see_other) unless current_user?(@user)
+  end
+  
   private
 
     def user_params
