@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show destroy edit update]
-  before_action :logged_in_user, only: %i[edit update]
+  before_action :logged_in_user, only: %i[index edit update]
   before_action :correct_user, only: %i[edit update]
 
   def set_user
@@ -11,7 +11,8 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.all
+    # @users = User.all
+    @users = User.order(created_at: :desc).paginate(page: params[:page],per_page:10)
   end
 
   def show

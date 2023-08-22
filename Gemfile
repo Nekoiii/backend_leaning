@@ -91,11 +91,12 @@ group :development do
 end
 
 gem 'rails-controller-testing'
-
 gem 'htmlbeautifier'
-
 gem 'sassc'
-
 gem 'aws-sdk-s3'
-
 gem 'bcrypt', '3.1.18'
+gem 'faker'
+gem "will_paginate"
+
+
+

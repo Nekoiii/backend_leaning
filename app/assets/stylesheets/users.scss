@@ -1,13 +1,26 @@
 .users_page{
   .users_list{
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    .user_card{
+      margin: 5px 0;
+    }
+  }
+  .user_card{
+    display: flex;
+    .avatar{
+    width: 5vw;
+    }
+    .user_name{
+      font-size: 20px;
+    }
   }
 }
 
-.users_show_page {
+.user_card {
   .avatar{
-    width: 10vw;
+    width: 8vw;
+    height: fit-content;
   }
 }
 

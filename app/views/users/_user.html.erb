@@ -1,10 +1,18 @@
 <div class='user_card'>
 
   <%= image_tag avatar_for(user), alt: 'User Avatar', class: 'avatar' %>
-  
-  <div><%= user.name %></div>
 
-  <div>Email:<%= user.email %></div>
 
+  <div>
+    <div class='user_name'>
+      <% if defined?(link_name) && link_name %>
+        <%= link_to user.name, user %>
+      <% else %>
+        <%= user.name %>
+      <% end %>
+    </div>
+
+    <div>Email:<%= user.email %></div>
+  </div>
 
 </div>
