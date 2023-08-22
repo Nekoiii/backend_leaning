@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_22_062251) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_22_121545) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,14 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_062251) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "images", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "record_id", null: false
-    t.string "image_path"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_id"], name: "index_images_on_record_id"
-  end
-
   create_table "machines", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -54,13 +46,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_062251) do
   end
 
   create_table "records", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "machine_id"
     t.string "title"
     t.string "content"
-    t.bigint "machine_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "record_type"
     t.integer "record_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["machine_id"], name: "index_records_on_machine_id"
   end
 
@@ -75,18 +67,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_062251) do
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "email"
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "images", "records"
   add_foreign_key "records", "machines"
   add_foreign_key "user_records", "records"
   add_foreign_key "user_records", "users"

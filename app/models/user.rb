@@ -7,7 +7,7 @@ class User < ApplicationRecord
   EMAIL_LENGTH_MAX = 255
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i # regex for email: https://qiita.com/HIROKOBA/items/1358aa2e9652688698ee
 
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
 
   has_one_attached :avatar 
   has_many :user_records
@@ -25,8 +25,9 @@ class User < ApplicationRecord
   # (or it will fail when editting user profile if the password is not filled in.)
   validates :password, presence: true, length: { minimum: PASSWORD_LENGTH_MIN }, allow_nil: true
 
-  before_save :prepare_for_save
   after_create :oncreate
+  before_save :downcase_email
+  before_create :create_activation_digest
 
   
   # Create a new token and store in :remember_token
@@ -54,7 +55,7 @@ class User < ApplicationRecord
 
   private
 
-    def prepare_for_save
+    def downcase_email
       # &. : https://thoughtbot.com/blog/ruby-safe-navigation
       email&.downcase!
     end
@@ -62,6 +63,11 @@ class User < ApplicationRecord
     def oncreate
       puts 'Successfully created a new user: ' \
           "ID - #{id}, Name: #{name} ."
+    end
+    
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
     end
 
   class << self

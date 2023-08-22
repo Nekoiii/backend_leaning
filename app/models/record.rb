@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Record < ApplicationRecord
-  belongs_to :machine
+  belongs_to :machine, optional: true
 
   has_many :user_records
   has_many :users, through: :user_records
@@ -12,7 +12,9 @@ class Record < ApplicationRecord
   enum record_type: Types::RecordEnumType::RECORD_TYPES
   enum record_status: Types::RecordStatusEnumType::RECORD_STATUS
 
+  after_create :oncreate
+
   def oncreate
-    puts 'Successfully created a new record'
+    puts "Successfully created a new record: #{id}"
   end
 end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[index show new create edit update destroy]
   resources :machines, only: %i[index show]
   resources :sessions, only: %i[new create destroy]
+  resources :account_activations, only: [:edit]
   
   root 'pages#home'
   get  '/signup', to: 'users#new', as: 'signup'
