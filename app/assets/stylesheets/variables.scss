@@ -6,12 +6,29 @@
   --blue-1: #91bee6;
   --blue-2: #6398c7;
 
-  --red-1: #f78a8a;
+  --red-1: #fd8a8a;
   --red-2: #ec6868;
+  --red-3: #e20000;
 
 
   --font-small: 15px;
   --font-big: 25px;
 }
+
+.red-1{
+  color:var(--red-1)
+}
+a.red-1:hover {
+  color: var(--red-2);
+}
+.red-2{
+  color:var(--red-2)
+}
+.red-2:hover{
+  color:var(--red-3)
+}
+
+
+
 
 

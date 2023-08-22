@@ -4,15 +4,25 @@
 
 
   <div>
-    <div class='user_name'>
-      <% if defined?(link_name) && link_name %>
-        <%= link_to user.name, user %>
-      <% else %>
-        <%= user.name %>
+    <div class='flex-box'>
+      <div class='user_name'>
+        <% if defined?(link_name) && link_name %>
+          <%= link_to user.name, user %>
+        <% else %>
+          <%= user.name %>
+        <% end %>
+      </div>
+      <% if user.admin %>
+        <div class='red-1'>* Admin user</div>
       <% end %>
     </div>
-
     <div>Email:<%= user.email %></div>
+
+    <% if current_user.admin? && !current_user?(user) %>
+      <%= link_to "delete", user,
+       data: { "turbo-method": :delete,turbo_confirm: "You sure?" },
+       class:'red-2' %>
+    <% end %>
   </div>
 
 </div>

@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 machine1 = Machine.create(name: 'machine1')
-user1 = User.create(name: 'user1')
+user1 = User.create(
+  name: 'a',
+  email:'a@a.a',
+  password:'aaaaaa',
+  password_confirmation:'aaaaaa',
+  admin: true
+)
 
 record1 = Record.create(
   title: 'aaa',

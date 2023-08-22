@@ -2,8 +2,9 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show destroy edit update]
-  before_action :logged_in_user, only: %i[index edit update]
+  before_action :logged_in_user, only: %i[index edit update destroy]
   before_action :correct_user, only: %i[edit update]
+  before_action :admin_user, only: %i[destroy]
 
   def set_user
     @user = User.find(params[:id])
@@ -12,7 +13,7 @@ class UsersController < ApplicationController
 
   def index
     # @users = User.all
-    @users = User.order(created_at: :desc).paginate(page: params[:page],per_page:10)
+    @users = User.order(created_at: :desc).paginate(page: params[:page], per_page: USERS_PER_PAGE)
   end
 
   def show
@@ -78,8 +79,20 @@ class UsersController < ApplicationController
     redirect_to(root_url, status: :see_other) unless current_user?(@user)
   end
   
+  def admin_user
+    redirect_to(root_url, status: :see_other) unless current_user.admin?
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User with id #{params[:id]} deleted"
+    redirect_to users_url, status: :see_other
+  end
+  
   private
 
+    # Remember not to add 'admin' attribute here, or something likes 
+    # 'patch /users/5?admin=1' would be able to change user with id 5 to admin user.
     def user_params
       params.require(:user).permit(:name, :email, :avatar,
                        :password, :password_confirmation)
