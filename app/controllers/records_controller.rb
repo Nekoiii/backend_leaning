@@ -48,6 +48,7 @@ class RecordsController < ApplicationController
 
     Rails.logger.debug "record params--: #{params}--"
     Rails.logger.debug "record params: #{record_params}--"
+    Rails.logger.debug "params[:record][:images]: #{params[:record][:images].inspect}--"
     if @record.update(record_params)
       redirect_to @record, notice: "Record with ID #{params[:id]} was successfully updated."
     else
@@ -58,6 +59,7 @@ class RecordsController < ApplicationController
   private
 
     def attach_images
+      Rails.logger.debug "attach images--- #{params[:record][:images].inspect}--"
       params[:record][:images] = @record.images.attach(params[:record][:images])
     end
 
@@ -68,38 +70,8 @@ class RecordsController < ApplicationController
       end
     end
 
-  public
-
-  def add_images
-    config = Rails.application.config_for(:storage)
-    bucket_name = config['amazon']['bucket']
-    region = config['amazon']['region']
-
-    @record = Record.find(params[:id])
-    image_files = params[:images]
-
-    s3 = Aws::S3::Resource.new(region:)
-
-    image_files.each do |image_file|
-      upload_image_to_s3(image_file, s3, bucket_name)
-    end
-
-    Rails.logger.debug "add_images called with #{params[:images].length} images"
-
-    redirect_to @record
-  end
 
   private
-
-    def upload_image_to_s3(image_file, s3, bucket_name)
-      name = image_file.original_filename
-      obj = s3.bucket(bucket_name).object(name)
-      obj.put(body: File.read(image_file.tempfile), acl: 'public-read')
-
-      image = Image.new(image_path: obj.public_url)
-      image.record = @record
-      image.save!
-    end
 
     # strong parameters: https://ichigick.com/rails-strong-parameter/
     def record_params
