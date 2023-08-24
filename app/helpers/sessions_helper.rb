@@ -18,9 +18,10 @@ module SessionsHelper
     if (user_id = session[:user_id])  #* It's '=' not '==' here!
       # @current_user ||= User.find_by(id: user_id)
       user = User.find_by(id: user_id)
-      if user && session[:session_token] == user.session_token
-        @current_user = user
-      end
+      @current_user ||= user if session[:session_token] == user.session_token
+      # if user && session[:session_token] == user.session_token
+      #   @current_user = user
+      # end
     elsif (user_id = cookies.encrypted[:user_id])
       user = User.find_by(id: user_id)
       # if user &. authenticated?(cookies[:remember_token])

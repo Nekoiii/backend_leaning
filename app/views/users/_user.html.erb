@@ -12,13 +12,13 @@
           <%= user.name %>
         <% end %>
       </div>
-      <% if user.admin %>
+      <% if user.admin? %>
         <div class='red-1'>* Admin user</div>
       <% end %>
     </div>
     <div>Email:<%= user.email %></div>
 
-    <% if current_user.admin? && !current_user?(user) %>
+    <% if current_user&.admin? && !current_user?(user) %>
       <%= link_to "delete", user,
        data: { "turbo-method": :delete,turbo_confirm: "You sure?" },
        class:'red-2' %>
