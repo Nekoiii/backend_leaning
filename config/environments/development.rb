@@ -45,7 +45,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # *Use 'web:3000' not 'local:3000' when running on Docker !!!!
-  host = 'web:3000'
+  # host = 'web:3000'
+  if ENV['DOCKERIZED'] == 'true'
+    host = 'localhost:3000'
+  else
+    host = 'web:3000'
+  end
   config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 
   # Print deprecation notices to the Rails logger.

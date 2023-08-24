@@ -37,10 +37,16 @@ class UsersController < ApplicationController
     end
 
     if @user.save
-      reset_session
-      log_in @user
-      flash[:success] = "Welcome, #{@user.name}!"
-      redirect_to @user
+      """(It's able to check the demo mail in logs,
+      click on the link after 'Click on the link below to activate your account')
+      """
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
+      # reset_session
+      # log_in @user
+      # flash[:success] = "Welcome, #{@user.name}!"
+      # redirect_to @user
     else
       render 'new', status: :unprocessable_entity
     end
