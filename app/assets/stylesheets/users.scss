@@ -9,7 +9,7 @@
   .user_card{
     display: flex;
     .avatar{
-    width: 5vw;
+      width: 5vw;
     }
     .user_name{
       font-size: 20px;
@@ -20,7 +20,7 @@
 .user_card {
   .avatar{
     width: 8vw;
-    height: fit-content;
+    height: auto;
   }
 }
 

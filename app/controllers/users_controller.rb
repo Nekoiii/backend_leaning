@@ -13,11 +13,15 @@ class UsersController < ApplicationController
 
   def index
     # @users = User.all
-    @users = User.order(created_at: :desc).paginate(page: params[:page], per_page: USERS_PER_PAGE)
+    @users = User.where(activated: true)
+                  .order(created_at: :desc)
+                  .paginate(page: params[:page], per_page: USERS_PER_PAGE)
+    # Rails.logger.debug("@users set in index: #{@users.inspect}")
   end
 
   def show
     @records = @user.records
+    redirect_to root_url and return unless @user.activated?
     # debugger
   end
 
@@ -40,7 +44,7 @@ class UsersController < ApplicationController
       """(It's able to check the demo mail in logs,
       click on the link after 'Click on the link below to activate your account')
       """
-      UserMailer.account_activation(@user).deliver_now
+      @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
       # reset_session
@@ -80,7 +84,6 @@ class UsersController < ApplicationController
   end
 
   def correct_user
-    @user = User.find(params[:id])
     # current_user?() is the method defined in sessions_helper.rb
     redirect_to(root_url, status: :see_other) unless current_user?(@user)
   end

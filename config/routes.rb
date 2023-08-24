@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # member v.s collection: https://gizanbeak.com/post/rails-member-collection
   resources :records 
 
-  resources :users, only: %i[index show new create edit update destroy]
+  resources :users
   resources :machines, only: %i[index show]
   resources :sessions, only: %i[new create destroy]
   resources :account_activations, only: [:edit]

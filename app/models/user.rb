@@ -58,6 +58,15 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  # Activate account
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+  
   private
 
     def downcase_email
@@ -74,6 +83,8 @@ class User < ApplicationRecord
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(activation_token)
     end
+
+
 
   class << self
     # https://railstutorial.jp/chapters/basic_login?version=7.0#cha-basic_login
