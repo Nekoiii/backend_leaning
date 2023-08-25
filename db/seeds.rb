@@ -7,27 +7,28 @@ Machine.destroy_all
 
 machines = []
 5.times do |i|
-  machines << Machine.create!(name: "Machine #{i}")
+  machines << Machine.create!(name: "Machine #{i+1}")
 end
 
 users=[]
 20.times do |i|
-  name  = "User #{i}"
-  email = "user-#{i}@mail.com"
+  name  = "User #{i+1}"
+  email = "user-#{i+1}@mail.com"
   password = "password"
-  User.create!(name:  name,
+  user=User.create!(name:  name,
                email: email,
                password: password,
                password_confirmation: password,
                activated: true,
                activated_at: Time.zone.now)
+  users << user
 end
 
 records = []
 30.times do |i|
   records << Record.create!(
-    title: "Record #{i}", 
-    content: "Content for record #{i}",
+    title: "Record #{i+1}", 
+    content: "Content for record #{i+1}",
     machine: [machines.sample, nil].sample,
     record_type: Types::RecordEnumType::RECORD_TYPES.keys.sample,
     record_status: Types::RecordStatusEnumType::RECORD_STATUS.keys.sample
@@ -39,7 +40,9 @@ end
 'UserRecord.create(user: ...., record: ....)'
 """
 users.each do |user|
-  user.records << records.sample(rand(1..5))
+  rand(1..5).times do 
+    user.records << records.sample
+  end
 end
 
 admin_user = User.create(
@@ -51,7 +54,7 @@ admin_user = User.create(
   activated: true,
   activated_at: Time.zone.now
 )
-
+admin_user.records << records.sample
 
 
 

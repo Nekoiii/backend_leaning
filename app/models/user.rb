@@ -10,7 +10,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token
 
   has_one_attached :avatar 
-  has_many :user_records
+  has_many :user_records, dependent: :destroy
   has_many :records, through: :user_records
 
   validates :name, presence: true, length: { minimum: NAME_LENGTH_MIN, maximum: NAME_LENGTH_MAX }
