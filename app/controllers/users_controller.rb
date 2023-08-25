@@ -5,11 +5,14 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: %i[index edit update destroy]
   before_action :correct_user, only: %i[edit update]
   before_action :admin_user, only: %i[destroy]
+  before_action :set_title
 
   def set_user
     @user = User.find(params[:id])
   end
-
+  def set_title
+    @title = 'Users'
+  end
 
   def index
     # @users = User.all

@@ -3,6 +3,7 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: %i[show destroy edit update]
   before_action :set_title
+  before_action :logged_in_user, only: %i[new create]
 
   def set_record
     @record = Record.find(params[:id])
@@ -17,7 +18,7 @@ class RecordsController < ApplicationController
   def index
     # Rails.logger.debug : https://codeclub965.com/?p=1520
     # Rails.logger.debug 'qqqqq'+Types::RecordStatusEnumType::RECORD_STATUS.keys[1].to_s
-    @records = Record.all
+    @records = Record.all.order(created_at: :desc)
     @totle_records_count = Record.count
     @overflow_records_count = Record.where(
       record_status: Types::RecordStatusEnumType::RECORD_STATUS.keys[1].to_s
@@ -27,8 +28,20 @@ class RecordsController < ApplicationController
   def new
     # Use another layout instead fo the default one
     @title = 'New Record'
-    render layout: 'test_layout_1'
     @record = Record.new
+    render layout: 'test_layout_1'
+  end
+
+  def create
+    Rails.logger.debug("create-record-params---#{params}")
+    Rails.logger.debug("create-record-record_params---#{params}")
+    @record = Record.new(record_params)
+    if @record.save
+      flash[:info] = 'Successfully create a new record!'
+    else
+      flash[:danger] = 'Failed to create new record!'
+    end
+    redirect_to records_path
   end
 
   def destroy
@@ -45,10 +58,10 @@ class RecordsController < ApplicationController
     delete_images if params[:images_to_delete]
 
     Rails.logger.debug "Images to delete: #{params[:images_to_delete]}-----"
-
     Rails.logger.debug "record params--: #{params}--"
     Rails.logger.debug "record params: #{record_params}--"
     Rails.logger.debug "params[:record][:images]: #{params[:record][:images].inspect}--"
+
     if @record.update(record_params)
       redirect_to @record, notice: "Record with ID #{params[:id]} was successfully updated."
     else
@@ -72,7 +85,6 @@ class RecordsController < ApplicationController
 
 
   private
-
     # strong parameters: https://ichigick.com/rails-strong-parameter/
     def record_params
       params.require(:record).permit(
@@ -81,4 +93,5 @@ class RecordsController < ApplicationController
         images: [], images_to_delete: [], user_ids: []
       )
     end
+
 end

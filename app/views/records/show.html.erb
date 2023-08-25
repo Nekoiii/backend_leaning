@@ -26,7 +26,7 @@
 
 
   <div class='flex-box flex-wrap'>
-    <% @record.images.each do |image| %>
+    <% @record&.images&.each do |image| %>
       <div><%= image_tag image , :class => "record_img_thumbnail"%></div>
     <% end %>
   </div>

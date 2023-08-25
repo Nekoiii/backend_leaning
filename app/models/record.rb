@@ -14,7 +14,8 @@ class Record < ApplicationRecord
 
   after_create :oncreate
 
-  def oncreate
-    puts "Successfully created a new record: #{id}"
-  end
+  private
+    def oncreate
+      puts "Successfully created a new record: #{id}"
+    end
 end
