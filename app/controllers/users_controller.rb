@@ -78,13 +78,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url, status: :see_other
-    end
-  end
+
 
   def correct_user
     # current_user?() is the method defined in sessions_helper.rb

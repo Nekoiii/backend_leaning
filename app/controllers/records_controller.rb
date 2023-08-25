@@ -34,7 +34,7 @@ class RecordsController < ApplicationController
 
   def create
     Rails.logger.debug("create-record-params---#{params}")
-    Rails.logger.debug("create-record-record_params---#{params}")
+    Rails.logger.debug("create-record-record_params---#{record_params}")
     @record = Record.new(record_params)
     if @record.save
       flash[:info] = 'Successfully create a new record!'

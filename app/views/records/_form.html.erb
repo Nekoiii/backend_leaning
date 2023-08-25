@@ -83,7 +83,6 @@
   });
   // Add new img to all new imgs list
   function show_new_imgs(e) {
-
     //Upload imgs files
     new_imgs=Array.from(e.target.files); 
     /*
@@ -91,7 +90,8 @@
     select photos, but don't know how to change the parameters params[:record][:images]
     in records_controller.rb, so only the last one selected was uploaded.
     */
-    window.all_new_imgs.unshift(...new_imgs)
+    // window.all_new_imgs.unshift(...new_imgs)
+    window.all_new_imgs=new_imgs
     console.log('all_new_imgs',all_new_imgs)
 
     // Preview after adding new imgs
@@ -148,14 +148,6 @@
     });
   });  
 
-  document.getElementById('img_upload_button').addEventListener('submit', e=>{
-    e.preventDefault();
-
-    //chatgpt,我觉得应该在这里把all_new_imgs作为params[:record][:images]传过去，但不知道要怎么写
-
-    form.submit();
-  }    
-  )
 
 </script>
 
