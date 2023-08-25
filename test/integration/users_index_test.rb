@@ -23,7 +23,7 @@ class UsersIndexAdminTest < UsersIndexAdmin
   end
 
   test "should paginate users" do
-    expected_count = User.all.count > USERS_PER_PAGE ? 1 : 0
+    expected_count = User.all.count > USERS_PER_PAGE ? 2 : 0
     assert_select 'div.pagination', count: expected_count    
   end
 
